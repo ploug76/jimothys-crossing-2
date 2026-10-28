@@ -67,7 +67,7 @@ function A(){try{if(!ac){ac=new(window.AudioContext||webkitAudioContext)();maste
   echoIn=ac.createGain();echoIn.gain.value=1;const dl=ac.createDelay(1);dl.delayTime.value=.21;const fb=ac.createGain();fb.gain.value=.34;const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2400;const eo=ac.createGain();eo.gain.value=.5;
   echoIn.connect(dl);dl.connect(lp);lp.connect(fb);fb.connect(dl);lp.connect(eo);eo.connect(master);
   sfxGain=ac.createGain();sfxGain.gain.value=.5;sfxGain.connect(master);const se=ac.createGain();se.gain.value=.18;sfxGain.connect(se);se.connect(echoIn);
-  musicGain=ac.createGain();musicGain.gain.value=.24;musicGain.connect(master);const me=ac.createGain();me.gain.value=.42;musicGain.connect(me);me.connect(echoIn)}
+  musicGain=ac.createGain();musicGain.gain.value=.12;musicGain.connect(master);const me=ac.createGain();me.gain.value=.42;musicGain.connect(me);me.connect(echoIn)}
  if(ac.state=='suspended')ac.resume()}catch(e){}return ac}
 function setMute(m){muted=m;ST.set('mute',m);if(master)master.gain.value=m?0:1}
 // one synth voice with an ADSR envelope, optional vibrato and pitch slide
