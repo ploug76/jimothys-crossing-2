@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#16224a"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Jimothy 2">
+<title>Jimothy's Crossing 2: Market Mayhem</title>
+<meta name="description" content="Jimothy's Crossing 2: Market Mayhem. Seattle's famous chunky raccoon hops through Pike Place Market and the Locks in a brand-new 16-bit adventure. Free, from Peter's Arcade.">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Peter's Arcade"><meta property="og:title" content="Jimothy's Crossing 2: Market Mayhem"><meta property="og:description" content="Flying fish, market carts, turning tides and sea lions: Jimothy is back in a new 16-bit adventure. Free to play.">
+<meta property="og:url" content="https://ploug76.github.io/jimothys-crossing-2/"><meta property="og:image" content="https://ploug76.github.io/jimothys-crossing-2/cover.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://ploug76.github.io/jimothys-crossing-2/cover.png">
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:#0b1026;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;overscroll-behavior:none}
+canvas{display:block;position:fixed;left:0;top:0;touch-action:none;image-rendering:pixelated;image-rendering:crisp-edges}
+#panel{position:fixed;inset:0;display:none;z-index:20;background:rgba(0,0,10,.7);align-items:center;justify-content:center;box-sizing:border-box;padding:calc(10px + env(safe-area-inset-top)) calc(10px + env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) calc(10px + env(safe-area-inset-left))}
+#pbox{background:linear-gradient(#2a4ab0,#14246a);border:4px solid #eef2fa;outline:3px solid #1a1424;border-radius:6px;width:min(92vw,460px);max-height:100%;overflow:auto;padding:12px 16px;color:#fff;font:bold 15px/1.45 "Courier New",ui-monospace,monospace;touch-action:pan-y;box-sizing:border-box;-webkit-user-select:text;user-select:text;text-shadow:1px 1px 0 #000}
+#pbox h2{margin:4px 0 8px;text-align:center;color:#ffd23f;font-size:20px}#pbox h3{margin:10px 0 4px;color:#9fd0ff}#pbox ul{margin:4px 0;padding-left:20px}#pbox table{border-collapse:collapse;width:100%;font-size:14px}#pbox td{border:1px solid rgba(255,255,255,.35);padding:3px 5px}
+#pclose{display:block;margin:12px auto 2px;min-height:44px;min-width:120px;font:bold 18px "Courier New",monospace;padding:8px 30px;border-radius:4px;border:3px solid #eef2fa;outline:2px solid #1a1424;background:#2e9e5b;color:#fff;cursor:pointer}
+</style></head><body>
+<canvas id="c" aria-label="Jimothy's Crossing 2 game"></canvas>
+<div id="panel" role="dialog" aria-modal="true"><div id="pbox"><div id="ptext"></div><button id="pclose" type="button">OK!</button></div></div>
+<script>
