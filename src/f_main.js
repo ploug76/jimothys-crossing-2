@@ -19,7 +19,7 @@ function drawTitle(){const top=HUDY+4,bot=IH-Math.ceil(SI.b)-4,bl=titleButtons()
  else{const lw=IW/2,cx=Math.round(SI.l+(lw-SI.l)/2),W=Math.min(lw-SI.l-8,200);let y=logo(cx,top,W);const area=bot-y-14;if(area>=40)portrait(cx,y+area/2,area);txt('JIMOTHY IS BACK, AND',cx,bot-10,'#ffffff',{sh:OL});txt('THE MARKET IS WILD!',cx,bot-1,'#ffffff',{sh:OL});
   const rx=Math.round(lw+(IW-SI.r-lw)/2),bw=Math.min(IW-SI.r-lw-12,170),tot=bl.length*(bh+gap)+12,b0=Math.max(top+TB+4,Math.round((top+bot-tot)/2));bl.forEach((b,i)=>button(b[0],rx-bw/2,b0+i*(bh+gap),bw,bh,b[1],b[2]));txt('BEST '+String(ST.get('best',0)).padStart(6,'0'),rx,b0+bl.length*(bh+gap)+6,'#ffd23f',{sh:OL})}}
 function drawPause(){dimBoard(.6);const cx=BX+BW/2,bh=Math.max(TB,22),bw=Math.min(150,BW-16);let y=BYp+8;txt('PAUSED',cx,y+10,'#ffd23f',{sc:3,ol:OL,sh:null});y+=28;
- [['RESUME','#2e9e5b',togglePause],['RESTART','#2b6cb0',()=>{paused=false;start(1)}],['D-PAD: '+(dpadOn?'ON':'OFF'),'#8d5bd6',toggleDpad],['MAIN MENU','#56616e',toTitle]].forEach((b,i)=>button(b[0],cx-bw/2,y+i*(bh+5),bw,bh,b[1],b[2]));y+=4*(bh+5)+6;
+ [['RESUME','#2e9e5b',togglePause],['RESTART','#2b6cb0',()=>{paused=false;start(1)}],['MAIN MENU','#56616e',toTitle]].forEach((b,i)=>button(b[0],cx-bw/2,y+i*(bh+5),bw,bh,b[1],b[2]));y+=3*(bh+5)+6;
  for(const l of wrapTxt('THE GAME PAUSES BY ITSELF IF YOU SWITCH APPS.',BW-16)){txt(l,cx,y,'#cfe3ff',{sh:OL});y+=10}}
 function drawOver(){const top=BYp,bot=IH-Math.ceil(SI.b)-3;g.fillStyle='rgba(5,10,30,.82)';g.fillRect(BX,top,BW,bot-top);const cx=BX+BW/2,bh=Math.max(TB,22);let y=top+6;
  const s=fitSc('GAME OVER',3,BW-8);txt('GAME OVER',cx,y+s*3.5,'#ff5a5a',{sc:s,ol:OL,sh:'#5a0a0a'});y+=s*7+8;
@@ -56,12 +56,12 @@ let overAt=-9;
 function toTitle(){state='title';paused=false;G=null;pops=[];pickups=[];buildLevel(1);lt=0;chrome();playSong('title')}
 const _go=gameOver;gameOver=function(){_go();overAt=gt};
 function togglePause(){if(state!='play')return;paused=!paused;holdDir=null;swipe=null;dpadPtr=null;if(!paused)queue=[];chrome()}
-function toggleDpad(){dpadOn=!dpadOn;ST.set('dpad',dpadOn);onResize()}
+function toggleDpad(){}
 function chrome(){}
 function showScores(){try{if(window.PALB)PALB.show()}catch(e){}}
 function showHelp(){if(state=='play'&&!paused)togglePause();panelOpen=true;$('ptext').innerHTML=`<h2>Jimothy's Crossing 2: Market Mayhem</h2>
 <p>The garbage truck hauled Jimothy's trash cans to Pike Place Market! Hop Seattle's famous chunky raccoon through the Market and across the Locks, and tuck him into all <b>5 new dens</b> in the Market alley.</p>
-<h3>Controls</h3><ul><li><b>Swipe</b> up / down / left / right to hop one space.</li><li><b>Tap</b> anywhere to hop forward.</li><li>Or use the <b>D-pad</b> (hold to keep hopping) or arrow keys / WASD. Turn the D-pad on or off in the pause menu.</li><li>P = pause, M = sound, H = help.</li></ul>
+<h3>Controls</h3><ul><li><b>Swipe</b> up / down / left / right to hop one space.</li><li><b>Tap</b> anywhere to hop forward.</li><li>On a computer, use the arrow keys or WASD.</li><li>P = pause, M = sound, H = help.</li></ul>
 <h3>New in the Market</h3><ul><li><b>Flying fish!</b> When a fishmonger shouts "FISH!", a salmon is about to fly down the ice aisle.</li><li><b>Traffic lights</b> (level 2+): when the light at the boardwalk turns green for you, the bottom three lanes stop. Hop across!</li><li><b>The tide turns</b> (level 3+): rafts in the top lane slow down and drift backward, then forward again.</li><li><b>Kayaks</b> wobble and tip, and so do the <b>life rings</b>. Hop off before they go under.</li><li><b>Sea lions</b> (level 4+) nap on some rafts. Don't land on them!</li><li>Delivery vans, produce carts, forklifts, tour trolleys, bikes and skateboarders.</li><li>Level 3+: a seagull on the Market floor and crows in the dens.</li></ul>
 <h3>Points</h3><table><tr><td>Each new row forward</td><td>10</td></tr><tr><td>Reaching a den</td><td>50 + time bonus</td></tr><tr><td>Mini donut / Chowder / Flowers</td><td>20 / 50 / 100</td></tr><tr><td>Grab treats quickly in a row</td><td>combo up to x4</td></tr><tr><td>Golden can (rare)</td><td>500 + full timer</td></tr><tr><td>June bug in a den</td><td>200</td></tr><tr><td>Bring the baby raccoon home</td><td>200</td></tr><tr><td>All 5 dens filled</td><td>1000</td></tr></table>
 <p>Extra life every 10,000 points. Levels start gentle and get busier, with sunsets at the Locks, salmon-run showers and the neon night market. The whole game is free.</p>`;$('panel').style.display='flex'}

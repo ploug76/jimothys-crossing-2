@@ -1,6 +1,6 @@
 // ---------- layout: a low-resolution 16-bit buffer (board = 176x224 px) scaled up with crisp nearest-neighbour pixels
 const BW=176,BHP=224,HUDP=24,BARP=12;
-let S=2,IW=180,IH=320,BX=2,BYp=24,HUDY=0,BARY=248,EXTRA=60,SI={t:0,r:0,b:0,l:0},SAFE={t:0,r:0,b:0,l:0},DPAD=null,TBTN=[],SIDE=0,TB=22,dpadOn=ST.get('dpad',true);
+let S=2,IW=180,IH=320,BX=2,BYp=24,HUDY=0,BARY=248,EXTRA=60,SI={t:0,r:0,b:0,l:0},SAFE={t:0,r:0,b:0,l:0},DPAD=null,TBTN=[],SIDE=0,TB=22,dpadOn=false;
 function readSafe(){try{if(window.__SAFE){SAFE=Object.assign({t:0,r:0,b:0,l:0},window.__SAFE);return}const d=document.createElement('div');d.style.cssText='position:fixed;top:0;left:0;width:0;height:0;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)';document.body.appendChild(d);const cs=getComputedStyle(d);SAFE={t:parseFloat(cs.paddingTop)||0,r:parseFloat(cs.paddingRight)||0,b:parseFloat(cs.paddingBottom)||0,l:parseFloat(cs.paddingLeft)||0};d.remove()}catch(e){}}
 function onResize(){readSafe();const W=innerWidth,H=innerHeight,aw=Math.max(100,W-SAFE.l-SAFE.r),ah=Math.max(100,H-SAFE.t-SAFE.b);
  let s=Math.min(aw/BW,ah/(HUDP+BHP+BARP));const fs=Math.floor(s);if(fs>=1&&fs/s>=.8)s=fs;S=s;
