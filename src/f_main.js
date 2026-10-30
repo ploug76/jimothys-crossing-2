@@ -35,6 +35,7 @@ const STORY=[["JIMOTHY FILLED ALL FIVE TRASH-CAN DENS AND CURLED UP FOR A WELL-E
  ["NOW JIMOTHY MUST DODGE FLYING FISH AND MARKET CARTS AND RIDE THE RAFTS AT THE LOCKS TO BUILD FIVE NEW DENS IN THE MARKET ALLEY.",'fish'],
  ["THE BABY RACCOON IS TAGGING ALONG. LET'S GO, JIMOTHY!",'kit']];
 let storyI=0,storyT=0,storyDone=null;
+function skipStory(){if(state!='story')return;storyI=STORY.length-1;storyT=-99;storyNext()}/* Oct 30: red SKIP, also Esc / gamepad Start or B */
 function showStory(done){storyDone=done;storyI=0;storyT=gt;state='story';paused=false;playSong('story')}
 function storyNext(){const full=STORY[storyI][0].length;if((gt-storyT)*32<full){storyT=gt-full/32-1;return}storyI++;storyT=gt;if(storyI>=STORY.length){ST.set('story',1);const d=storyDone;storyDone=null;d&&d()}}
 function drawStory(){const [text,pic]=STORY[storyI],bot=IH-Math.ceil(SI.b)-4,top=HUDY+4,cx=Math.round(IW/2),W=Math.min(IW-12,300);drawCity(0,0,IW,IH,storyI==0?'night':'day',gt*2,Math.round(IH*.55));
@@ -45,7 +46,7 @@ function drawStory(){const [text,pic]=STORY[storyI],bot=IH-Math.ceil(SI.b)-4,top
  else{portrait(cx-14,picY,Math.min(boxY-top-TB-6,120));spr(SP.kit,cx+22,picY+14+Math.round(Math.sin(gt*7)))}
  panel(cx-W/2,boxY,W,boxH,'#203c8c');lines.forEach((l,i)=>txt(l,cx-W/2+8,boxY+10+i*10,'#ffffff',{al:'left',sh:OL}));
  txt((storyI+1)+'/'+STORY.length,cx-W/2+4,boxY-6,'#ffd23f',{al:'left',sh:OL});const bw=Math.min(110,(W-8)/2);
- button(storyI<STORY.length-1?'NEXT':"LET'S GO!",cx+W/2-bw,bot-bh,bw,bh,'#2e9e5b',storyNext);button('SKIP',cx-W/2,bot-bh,bw,bh,'#56616e',()=>{storyI=STORY.length-1;storyT=-99;storyNext()})}
+ button(storyI<STORY.length-1?'NEXT':"LET'S GO!",cx+W/2-bw,bot-bh,bw,bh,'#2e9e5b',storyNext);button('SKIP >>',cx-W/2,bot-bh,bw,bh,'#d62f2f',skipStory)}
 function render(){UI=[];menuBtns=[];g.setTransform(1,0,0,1,0,0);g.imageSmoothingEnabled=false;const w=G&&state!='title'?G.w:'day';
  if(state=='title'){drawCity(0,0,IW,IH,'day',gt*2.5,Math.round(IH*.6));drawTB();drawTitle()}
  else if(state=='story'){drawStory();drawTB()}
@@ -87,7 +88,7 @@ c.addEventListener('pointerup',ptrEnd);c.addEventListener('pointercancel',ptrEnd
 const KM={ArrowUp:'up',w:'up',W:'up',ArrowDown:'down',s:'down',S:'down',ArrowLeft:'left',a:'left',A:'left',ArrowRight:'right',d:'right',D:'right'};
 addEventListener('keydown',e=>{if(window.PALB&&PALB.isOpen&&PALB.isOpen())return;if(panelOpen){if(e.key=='Escape'||e.key=='Enter'){$('pclose').click();e.preventDefault()}return}const k=e.key;A();
  if(KM[k]){e.preventDefault();if(state=='play'&&!paused){if(e.repeat&&(J.hopping||queue.length))return;tryMove(KM[k])}return}
- if(k=='p'||k=='P'||k=='Escape'){togglePause();return}if(k=='m'||k=='M'){setMute(!muted);if(!muted&&!musicOn)playSong(state=='title'?'title':songName||'day');return}if(k=='h'||k=='H'){showHelp();return}
+ if(state=='story'&&(k=='p'||k=='P'||k=='Escape')){skipStory();return}if(k=='p'||k=='P'||k=='Escape'){togglePause();return}if(k=='m'||k=='M'){setMute(!muted);if(!muted&&!musicOn)playSong(state=='title'?'title':songName||'day');return}if(k=='h'||k=='H'){showHelp();return}
  if(k==' '||k=='Enter'){e.preventDefault();if(state=='story'){storyNext();return}if(state=='title'){if(ST.get('story',0))start(1);else showStory(()=>start(1))}else if(state=='over'&&gt-overAt>.8)start(1);else if(paused)togglePause();else if(state=='play')tryMove('up')}});
 function bg(){if(state=='play'&&!paused)togglePause()}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)bg()});addEventListener('pagehide',bg);addEventListener('blur',bg);
